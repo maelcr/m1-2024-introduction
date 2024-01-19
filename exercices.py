@@ -7,7 +7,15 @@ et n'étant pas divisibles par "notDivisible", appliqué à tous les nombres ent
 Exemple: DivisibleCheck(isDivisible=5, notDivisible=2, rangeMin=1, rangeMax=7) --> [5]
 """
 def DivisibleCheck(isDivisible=7, notDivisible=5, rangeMin=4000, rangeMax=5000):
-    return
+    i=rangeMin
+    liste_return=[]
+    while(i<rangeMax):
+        if ((i%isDivisible)==0):
+            liste_return.append(i)
+        if ((i%notDivisible)!=0):
+            liste_return.append(i)
+        i+=1
+    return liste_return
 
 
 """
@@ -80,4 +88,6 @@ Utiliser la librairie keyboard pour détecter les touches du clavier.
 """
 def RcRobot():
     pass
+
+print(DivisibleCheck())
 
