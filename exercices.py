@@ -26,7 +26,13 @@ En considérant un nombre de départ n, créer une liste contenant l'ensemble de
 Exemple: SquaredNumbers(n=4) --> [0, 1, 4, 9, 16]
 """
 def SquaredNumbers(n=8):
-    return
+    i=0
+    liste_return=[]
+    while(i<=n):
+        liste_return.append(i**2)
+        i+=1
+    return liste_return
+
 
 
 """
@@ -89,5 +95,6 @@ Utiliser la librairie keyboard pour détecter les touches du clavier.
 def RcRobot():
     pass
 
-print(DivisibleCheck())
+#print(DivisibleCheck())
+print(SquaredNumbers())
 
