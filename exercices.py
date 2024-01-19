@@ -1,3 +1,5 @@
+import re
+
 """
 Question 01:
 
@@ -10,9 +12,7 @@ def DivisibleCheck(isDivisible=7, notDivisible=5, rangeMin=4000, rangeMax=5000):
     i=rangeMin
     liste_return=[]
     while(i<rangeMax):
-        if ((i%isDivisible)==0):
-            liste_return.append(i)
-        if ((i%notDivisible)!=0):
+        if ((i%isDivisible)==0 and (i%notDivisible)!=0):
             liste_return.append(i)
         i+=1
     return liste_return
@@ -25,7 +25,7 @@ En considérant un nombre de départ n, créer une liste contenant l'ensemble de
 
 Exemple: SquaredNumbers(n=4) --> [0, 1, 4, 9, 16]
 """
-def SquaredNumbers(n=8):
+def SquaredNumbers(n=4):
     i=0
     liste_return=[]
     while(i<=n):
@@ -76,7 +76,21 @@ Séparer la séquence en une liste de mots de passes
 Utiliser la librairie re pour chercher la présence de caractères dans chaque mot de passe
 """
 def PwdCheck(sequence: str):
-    return
+    pwd_checked_list=[]
+    pwd_list=sequence.split(",")
+    i=0
+    minu=re.compile('[a-z]+')
+    maju=re.compile('[A-Z]+')
+    chiffre=re.compile('[0-9]+')
+    while(i<len(pwd_list)):
+        pwd_checked_list.append(pwd_list[i])
+        #pwd_checked_list[i]=0
+        if(len(pwd_list[i])>=6 and len(pwd_list[i])<=12):
+            if(pwd_list[i][0]=="?" or pwd_list[i][0]=="#" or pwd_list[i][0]=="@"):
+                if(re.search(minu,pwd_list[i])!=None and re.search(maju,pwd_list[i])!=None and re.search(chiffre,pwd_list[i])!=None):
+                    pwd_checked_list[i]=1
+        i+=1
+    return pwd_checked_list
 
 
 """
@@ -102,5 +116,7 @@ def RcRobot():
 
 #print(DivisibleCheck())
 #print(SquaredNumbers())
-print(SquaredInterval())
+#print(SquaredInterval())
+liste_100_code="?N21m8O,@y9RJ8J,@c2d01I,@4Eli0p,@qRktu6,#031uwcB,?955XT71c,@heD1P6,?nobQCoVUB9,?Lla13K,#Z4243r,@vSfyupZdC3oi,?R41gGo,?4wB2n1,?Z00Qb0,@080N0x,@EBB9RKk,#wAHk0y,?RLS21l,#Sm2pYC,?2D3ToV,?4py698b0I,BzRBsh8,?r3QJm4,?tDdoyOoqs8,@uZ39Y8,@7uY4c0,@MPWvq2,#Gy8dnb,#zbd2L0,?9m7uSF,?S2fcx1,?pmi9yG,#fP21Wj,@ljZGp5,#hW0d5x,@TqtunAX8,@d8o366vyL,@Fh516S,?Icy0Zz,#4fcwju5f4U,?ZzW2m2,?6xvtt4v3yF,@8D3P81FKf,?eOCdnb6,#lxZ8o7,@caFhwcFUx2,#995gM5,#qEDqsVD,?9W8dd7252f,@lhxz68pC,?7y78bV,#rBCJy3,@cLFrvdF4,@hmL34L,?6bZfX8,@i5T64J,@8S9WI74N4b,@0iCGOo,#hCucluCV5,?TG48zz,?i6BEk0,@2B9Vx2,#tMpRtfLMW6,@cHNMgt6,#5nW7U7,?7d811yG,@3yfJxS,?3pxZuY,?RU0WdT,#W6u253,@iu6SLD,?RGFw78,#17Eq5I,?7s8fvv6iY,#6edQnR,@wl7oH4,#0RKcam,?BBMtd5,?n6E3dN,#pIbrDJqt8,@5N3y02,@vr16gz,?650b0I,@933svJ,#29h6,#m462EB,#NyL2J1,?x3eOek,?1f14xaO,@RHnrrAVXJ8,@Gu0h31,?ODsSJlssj1,?72zD89,@yK4VCV,?UCex5Q,#4573d72aL,@J794T0A00d,@yvTSh6,#Oh5pxz"
+print(PwdCheck(liste_100_code))
 
