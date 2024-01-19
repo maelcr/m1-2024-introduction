@@ -46,7 +46,12 @@ result[9] = 81
 result[100] = 10000
 """
 def SquaredInterval(rangeMin=8, rangeMax=100):
-    return
+    i=rangeMin
+    liste_return=[]
+    while(i<=rangeMax):
+        liste_return.append(i**2)
+        i+=1
+    return liste_return
 
 
 """
@@ -96,5 +101,6 @@ def RcRobot():
     pass
 
 #print(DivisibleCheck())
-print(SquaredNumbers())
+#print(SquaredNumbers())
+print(SquaredInterval())
 
