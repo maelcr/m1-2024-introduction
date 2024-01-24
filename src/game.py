@@ -1,64 +1,50 @@
 import numpy as np
 import scipy as scipy
 
-#scipy.signal.convolve2d
-
 
 class Game:
     def __init__(self, density, nbColumns, nbRows):
-        # Initialise à None un attribut de classe pour stocker une matrice de cellules en 2D
-        self.cells=None
+        # 2D Matrix of every cell
+        self.cells = None
 
-        # Initialise à None un attribut de classe pour stocker une matrice de cellules représentant le nombre de voisins
-        # de chaque cellule en 2D
-        self.cells_neighbour=None
+        # Number of neighbors of every cell
+        self.neighborCounts = None
 
-        # Initialise une matrice de convolution permettant de calculer le nombre de voisins de chaque cellule
-        # Indice : Numpy
-        [...]
+        # Comparison matrix for the 2d convolution
+        self.comparisonMatrix = np.ones((3, 3))
+        # The center cell is set to zero so the current cell doesn't count itself as a neighbor
+        self.comparisonMatrix[1][1] = 0
 
-        # Doit-on compter le point central dans la convolution ? Corrige ce problème
-        [...]
-
-        # Créé une fonction permettant de remplir la matrice des cellules aléatoirement en fonction du nombre
-        # de colonnes, de lignes et de la densité de cellules vivantes
         self.buildCells(density, nbColumns, nbRows)
 
     def buildCells(self, density, nbColumns, nbRows):
-        # Taille de la matrice : [nbColumns][nbRows]
-
-        # Densité de cellules vivantes : 40(%)
-        # Probabilité qu'elle soit vivante : density/100 (0.4)
-        # Probabilité qu'elle soit morte : 1 - density/100 (0.6)
-
-        # Cellule vivante = 1, cellule morte = 0
-        # Une probabilité est aléatoire donc np.random.choice entre 1 et 0 avec une probabilité de
-        # density/100 pour avoir 1, et une probabilité de 1-density/100 pour avoir 0
-        [...]
+        self.cells = np.random.choice([1, 0], nbColumns*nbRows, p=[density/100, 1-density/100]).reshape(nbColumns, nbRows)
 
     def clearCells(self, nbColumns, nbRows):
-        # Remplissage de la matrice avec des zéros
-        [...]
+        self.cells = np.zeros((nbColumns, nbRows))
 
     def compute(self):
-        # Utilisation de la librairie scipy pour effectuer la convolution entre chaque cellule et tous ses voisins
-        # Stocker le résultat dans la matrice représentant le nombre de voisins
-        [...]
+        self.neighborCounts = scipy.signal.convolve2d(self.cells, self.comparisonMatrix, mode='same')
 
     def cycle(self):
         # Compute neighbors for every cell
         self.compute()
 
         # Iterate through the whole board
-        # Pas besoin de connaître les nbCol et nbRow, vous avez déjà la matrice stockée en attribut la classe
-        for x in range([...]):
-            for y in range([...]):
+        for x in range(len(self.neighborCounts)):
+            for y in range(len(self.neighborCounts[0])):
 
                 # Rule 1: if a cell is living and is surrounded by 2 or 3 living cells, it survives
-                [...]
+                if self.cells[x][y] == 1:
+                    if self.neighborCounts[x][y] == 2 or self.neighborCounts[x][y] == 3:
+                        pass
+                    else:
+                        self.cells[x][y] = 0
 
                 # Rule 2: if a cell is dead and is surrounded by 3 living cells, it comes back to life
-                [...]
+                elif self.cells[x][y] == 0:
+                    if self.neighborCounts[x][y] == 3:
+                        self.cells[x][y] = 1
 
                 # If no rule is respected, the cell is dead upon the next iteration
-                [...]
+
